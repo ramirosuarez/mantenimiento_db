@@ -20,6 +20,14 @@ class Personal extends BaseController{
       ];
       return view('personal/tablaPersonal',$data);
     }
+    public function eliminados($estado = 0){
+      $personals = $this->personal->where('estado',$estado)->findAll();
+      $data= [
+        'titulo'=> 'listado de personal',
+        'datos' => $personals
+      ];
+      return view('personal/eliminados',$data);
+    }
 
     public function nuevo(){
       $data = ['titulo' => 'Alta Personal'];
@@ -58,8 +66,12 @@ class Personal extends BaseController{
       return redirect()->to(base_url().'/personal');
     }
 
-    public function eliminar(){
-      $this->personal->update($this->request->getPost('id'),['estado'=> 0]);
+    public function eliminar($id){
+      $this->personal->update($id,['estado'=> 0]);
       return redirect()->to(base_url().'/personal');
+    }
+    public function reingresar($id){
+      $this->personal->update($id,['estado'=> 1]);
+      return redirect()->to(base_url().'/personal/eliminados');
     }
   } 
