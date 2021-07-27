@@ -23,7 +23,7 @@ class Puesto extends BaseController
       'datos' =>  $puestos
     ];
 
-    return view('puestos/puestos', $data);
+    return view('puestos/tabla', $data);
   }
 
   public function eliminados($estado = 0)
@@ -48,7 +48,8 @@ class Puesto extends BaseController
     $this->puestos->save([
       'nombre'  =>  $this->request->getPost('nombre'),
       'descripcion'  =>  $this->request->getPost('descripcion'),
-      'especifique'  =>  $this->request->getPost('especifique')
+      'especifique'  =>  $this->request->getPost('especifique'),
+      'estado'=> 1
     ]);
     return redirect()->to(base_url() . '/puesto');
   }

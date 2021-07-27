@@ -4,8 +4,8 @@
 
 <div>
   <p>
-    <a class="btn btn-info" href="<?php echo base_url() ?>/personal/nuevo">Agregar</a>
-    <a class="btn btn-warning" href="<?php echo base_url() ?>/personal/eliminados">Eliminados</a>
+    <a class="btn btn-info" href="<?php echo base_url() ?>/area/nuevo">Agregar</a>
+    <a class="btn btn-warning" href="<?php echo base_url() ?>/area/eliminados">Eliminados</a>
   </p>
 </div>
 <div class="card-body">
@@ -18,10 +18,11 @@
         <th>nombre</th>
         <th>Apellido Paterno</th>
         <th>Apellido Materno</th>
-        <th>Tipo</th>
-        <th>Otro</th>
-        <th>Descripcion</th>
-        <th>Especifique</th>
+        <th>Foto</th>
+        <th>Usuario</th>
+        <th>Clave</th>
+        <th>Area</th>
+        <th>Puesto</th>
         <th></th>
         <th></th>
       </tr>
@@ -33,15 +34,16 @@
           <td><?php echo $dato['nombre'] ?></td>
           <td><?php echo $dato['apellido_paterno'] ?></td>
           <td><?php echo $dato['apellido_materno'] ?></td>
-          <td><?php echo $dato['tipo'] ?></td>
-          <td><?php echo $dato['otro'] ?></td>
-          <td><?php echo $dato['desc_personal'] ?></td>
-          <td><?php echo $dato['especifique'] ?></td>
-          <input type="hidden" name="id" value="" >
+          <td><?php echo $dato['foto'] ?></td>
+          <td><?php echo $dato['usuario'] ?></td>
+          <td><?php echo $dato['clave'] ?></td>
+          <td><?php echo $dato['id_area'] ?></td>
+          <td><?php echo $dato['id_puesto'] ?></td>
+         
           <td>
-            <a class="btn btn-warning" href="<?php echo base_url() . '/personal/editar/' . $dato['id']; ?>"><i class="fas fa-pencil-alt"></i></a>
+            <a class="btn btn-warning" href="<?php echo base_url() . '/area/editar/' . $dato['id']; ?>"><i class="fas fa-pencil-alt"></i></a>
           </td>
-          <td><a class="btn btn-danger" href="<?php echo base_url() . '/personal/eliminar/' . $dato['id']; ?>"><i class="fas fa-trash"></i></a>
+          <td><a class="btn btn-danger" href="<?php echo base_url() . '/area/eliminar/' . $dato['id']; ?>"><i class="fas fa-trash"></i></a>
         </td>
         </tr>
       <?php endforeach ?>

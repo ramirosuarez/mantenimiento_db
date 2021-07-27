@@ -33,8 +33,9 @@
           <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
             <nav class="sb-sidenav-menu-nested nav">
               <a class="nav-link text-uppercase" href="<?php echo base_url() ?>/puesto">depatamentos</a>
-              <a class="nav-link text-uppercase" href="layout-sidenav-light.html">jefe departamentos</a>
-              <a class="nav-link text-uppercase" href="layout-sidenav-light.html">Personal</a>
+              <a class="nav-link text-uppercase" href="<?php echo base_url() ?>/area">Area</a>
+              
+              
             </nav>
           </div>
           <a class="nav-link text-uppercase" href="<?php echo base_url() ?>/personal" >
