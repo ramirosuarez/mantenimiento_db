@@ -12,33 +12,48 @@
       </div>
       <div class="col-12 col-sm-4">
         <label>Apellido Paterno</label>
-        <input class="form-control" id="apellido_paterno" name="apellido_paterno" type="text"  require>
+        <input class="form-control" id="apellido_paterno" name="apellido_paterno" type="text" require>
       </div>
       <div class="col-12 col-sm-4">
         <label>Apellido Materno</label>
-        <input class="form-control" id="apellido_materno" name="apellido_materno" type="text"  require>
+        <input class="form-control" id="apellido_materno" name="apellido_materno" type="text" require>
+      </div>
+      <div class="col-12 col-sm-4">
+        <label>foto</label>
+        <input class="form-control" id="foto" name="foto" type="text" require>
+      </div>
+      <div class="col-12 col-sm-4">
+        <label>Usuario</label>
+        <input class="form-control" id="usuario" name="usuario" type="text" require>
+      </div>
+      <div class="col-12 col-sm-4">
+        <label>Clave</label>
+        <input class="form-control" id="clave" name="clave" type="text" require>
       </div>
       <div class="col-12 col-sm-6">
-        <label>Tipo</label>
-        <input class="form-control" id="tipo" name="tipo" type="text"  require>
+        <label>Puesto</label>
+        <select class="form-control" name="id_puesto" id="id_puesto" require>
+          <option value="">Seleccione un puesto</option>
+          <?php foreach($puestos as $puesto){?>
+            <option value="<?php echo $puesto['id'];?>"><?php echo $puesto['nombre'];?></option>
+          <?php }?>
+        </select>
       </div>
       <div class="col-12 col-sm-6">
-        <label>Otros</label>
-        <input class="form-control" id="otro" name="otro" type="text"  require>
+        <label>Jefe Area</label>
+        <select class="form-control" name="id_area" id="id_area" require>
+          <option value="">Seleccione su jefe de area</option>
+          <?php foreach($areas as $area){?>
+            <option value="<?php echo $area['id'];?>"><?php echo $area['nombre'];?></option>
+          <?php }?>
+        </select>
       </div>
-      <div class="col-12 col-sm-6">
-        <label>Descripcion</label>
-        <textarea class="form-control" name="desc_personal" id="desc_personal" cols="15" rows="10" require></textarea>
-      </div>
-      <div class="col-12 col-sm-6">
-        <label>Especifique</label>
-        <textarea class="form-control" name="especifique" id="especifique" cols="15" rows="10" require></textarea>
-      </div>
+      
     </div>
   </div>
   <div class="form-group mt-4">
-  <a href="<?php echo base_url()?>/area" class="btn btn-primary">Volver</a>
-  <button class="btn btn-success" type="submit">Aceptar</button>
+    <a href="<?php echo base_url() ?>/area" class="btn btn-primary">Volver</a>
+    <button class="btn btn-success" type="submit">Aceptar</button>
   </div>
 </form>
 

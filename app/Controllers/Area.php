@@ -1,39 +1,67 @@
 <?php
 
-  namespace App\Controllers;
+namespace App\Controllers;
 
-  use App\Controllers\BaseController;
-  use App\Models\AreaModel;
+use App\Models\AreaModel;
+use App\Models\PuestoModel;
+use App\Controllers\BaseController;
 
-class Area extends BaseController{
-    protected $area;
-    public function __construct()
-    {
-      $this->area = new AreaModel();
-    }
-    public function index($estado = 1)
+class Area extends BaseController
+{
+
+  protected $db;
+  protected $area;
+  public function __construct()
   {
-    $areas = $this->area->where('estado', $estado)->findAll();
+    $this->db      = \Config\Database::connect();
+    $this->area = new AreaModel();
+    $this->puestos = new PuestoModel();
+  }
+
+  public function index($estado = 1)
+  {
+    $builder = $this->db->table('area a');
+    $builder->select('a.*,p.nombre as puesto ,ar.nombre as area');
+    $builder->join('puesto p ', 'p.id = a.id_puesto');
+    $builder->join('area ar ', 'ar.id = a.id_area');
+    $builder->where('a.estado', $estado);
+    $query = $builder->get();
+
     $data = [
       'titulo' => 'listado de area',
-      'datos' => $areas
+      'datos' =>  $query
     ];
     return view('area/tabla', $data);
+    //return json_encode($query->getResult());
   }
+
 
   public function eliminados($estado = 0)
   {
-    $areas = $this->area->where('estado', $estado)->findAll();
+    $builder = $this->db->table('area a');
+    $builder->select('a.*,p.nombre as puesto ,ar.nombre as area');
+    $builder->join('puesto p ', 'p.id = a.id_puesto');
+    $builder->join('area ar ', 'ar.id = a.id_area');
+    $builder->where('a.estado', $estado);
+    $query = $builder->get();
+
     $data = [
       'titulo' => 'listado de area',
-      'datos' => $areas
+      'datos' =>  $query
     ];
     return view('area/eliminados', $data);
   }
 
   public function nuevo()
   {
-    $data = ['titulo' => 'Alta area'];
+    $areas = $this->area->where('estado', 1)->findAll();
+    $puestos = $this->puestos->where('estado', 1)->findAll();
+
+    $data = [
+      'titulo' => 'Alta area',
+      'areas' => $areas,
+      'puestos' => $puestos
+    ];
     return view('area/nuevo', $data);
   }
 
@@ -43,10 +71,11 @@ class Area extends BaseController{
       'nombre' => $this->request->getPost('nombre'),
       'apellido_paterno' => $this->request->getPost('apellido_paterno'),
       'apellido_materno' => $this->request->getPost('apellido_materno'),
-      'tipo' => $this->request->getPost('tipo'),
-      'otro' => $this->request->getPost('otro'),
-      'desc_area' => $this->request->getPost('desc_area'),
-      'especifique' => $this->request->getPost('especifique'),
+      'foto' => $this->request->getPost('foto'),
+      'usuario' => $this->request->getPost('usuario'),
+      'clave' => $this->request->getPost('clave'),
+      'id_area' => $this->request->getPost('id_area'),
+      'id_puesto' => $this->request->getPost('id_puesto'),
       'estado' => 1
     ]);
     return redirect()->to(base_url() . '/area');
@@ -54,8 +83,16 @@ class Area extends BaseController{
 
   public function editar($id)
   {
-    $areas = $this->area->where('id', $id)->first();
-    $data = ['titulo' => 'Editar inforamcion', 'dato' => $areas];
+    $areas = $this->area->where('estado', 1)->findAll();
+    $puestos = $this->puestos->where('estado', 1)->findAll();
+    $area = $this->area->where('id', $id)->first();
+
+    $data = [
+      'titulo' => 'Editar inforamcion',
+      'areas' => $areas,
+      'puestos' => $puestos,
+      'dato' => $area
+    ];
     return view('area/editar', $data);
   }
 
@@ -65,10 +102,11 @@ class Area extends BaseController{
       'nombre' => $this->request->getPost('nombre'),
       'apellido_paterno' => $this->request->getPost('apellido_paterno'),
       'apellido_materno' => $this->request->getPost('apellido_materno'),
-      'tipo' => $this->request->getPost('tipo'),
-      'otro' => $this->request->getPost('otro'),
-      'desc_area' => $this->request->getPost('desc_area'),
-      'especifique' => $this->request->getPost('especifique'),
+      'foto' => $this->request->getPost('foto'),
+      'usuario' => $this->request->getPost('usuario'),
+      'clave' => $this->request->getPost('clave'),
+      'id_area' => $this->request->getPost('id_area'),
+      'id_puesto' => $this->request->getPost('id_puesto')
     ]);
     return redirect()->to(base_url() . '/area');
   }
@@ -83,5 +121,13 @@ class Area extends BaseController{
     $this->area->update($id, ['estado' => 1]);
     return redirect()->to(base_url() . '/area/eliminados');
   }
-
-  }
+}
+  //   public function index($estado = 1)
+  // {
+  //   $areas = $this->area->where('estado', $estado)->findAll();
+  //   $data = [
+  //     'titulo' => 'listado de area',
+  //     'datos' => $areas
+  //   ];
+  //   return view('area/tabla', $data);
+  // }
