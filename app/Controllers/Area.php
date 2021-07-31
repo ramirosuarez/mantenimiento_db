@@ -28,7 +28,7 @@ class Area extends BaseController
     $query = $builder->get();
 
     $data = [
-      'titulo' => 'listado de area',
+      'titulo' => 'jefes de area',
       'datos' =>  $query
     ];
     return view('area/tabla', $data);
